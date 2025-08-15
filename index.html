@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FLEXRNet Research Prototype</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="header">
+        <div class="container">
+            <h1 class="header__title">FLEXRNet: Federated Learning + Edge XR Network with Adaptive RLNC</h1>
+            <p class="header__subtitle">Multi-Protocol Edge Network Simulation with Priority-Aware Scheduling</p>
+            <p class="header__description">A real-time simulation platform modeling large-scale, multi-user XR environments over multi-protocol edge networks with federated learning optimization and adaptive Random Linear Network Coding.</p>
+        </div>
+    </header>
+
+    <!-- Main Dashboard -->
+    <main class="main-dashboard">
+        <div class="container">
+            
+            <!-- System Architecture Panel -->
+            <section class="architecture-panel">
+                <h2 class="section-title">System Architecture</h2>
+                <div class="architecture-layers">
+                    <div class="architecture-layer" data-layer="0">
+                        <h3>Application Layer</h3>
+                        <div class="layer-components">
+                            <span class="component">Multi-User XR Digital Twin</span>
+                            <span class="component">ARENA-style Platform</span>
+                            <span class="component">Real-time Visualization</span>
+                        </div>
+                    </div>
+                    <div class="architecture-layer" data-layer="1">
+                        <h3>Edge AI Layer</h3>
+                        <div class="layer-components">
+                            <span class="component">Federated Learning Agents</span>
+                            <span class="component">Resource Allocation RL</span>
+                            <span class="component">Decision Engines</span>
+                        </div>
+                    </div>
+                    <div class="architecture-layer" data-layer="2">
+                        <h3>Network Coding Layer</h3>
+                        <div class="layer-components">
+                            <span class="component">Adaptive RLNC</span>
+                            <span class="component">Priority-Aware Scheduler</span>
+                            <span class="component">Galois Field GF(256)</span>
+                        </div>
+                    </div>
+                    <div class="architecture-layer" data-layer="3">
+                        <h3>Physical Network Layer</h3>
+                        <div class="layer-components">
+                            <span class="component">Multi-Protocol Mesh</span>
+                            <span class="component">Beamforming Control</span>
+                            <span class="component">Mobile Edge Computing</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="architecture-details">
+                    <div id="layer-details" class="layer-details-content"></div>
+                </div>
+            </section>
+
+            <!-- Control Panel -->
+            <section class="control-panel">
+                <h2 class="section-title">Simulation Control</h2>
+                <div class="control-grid">
+                    <div class="control-group">
+                        <button id="start-simulation" class="btn btn--primary">Start Simulation</button>
+                        <button id="stop-simulation" class="btn btn--secondary">Stop Simulation</button>
+                    </div>
+                    <div class="control-group">
+                        <label class="form-label">Scenario</label>
+                        <select id="scenario-select" class="form-control">
+                            <option value="normal">Normal Operation</option>
+                            <option value="high-loss">High Loss Scenario</option>
+                            <option value="node-churn">Node Churn</option>
+                            <option value="mmwave-blockage">mmWave Blockage</option>
+                            <option value="node-failure">Node Failure Recovery</option>
+                            <option value="high-mobility">High Mobility</option>
+                            <option value="protocol-interference">Protocol Interference</option>
+                            <option value="federated-stress">Federated Learning Stress</option>
+                            <option value="multi-modal">Multi-Modal Traffic</option>
+                        </select>
+                    </div>
+                    <div class="control-group">
+                        <label class="form-label">RLNC Redundancy Factor: <span id="redundancy-value">1.35</span></label>
+                        <input type="range" id="redundancy-slider" min="1.0" max="3.0" step="0.05" value="1.35" class="form-control">
+                    </div>
+                    <div class="control-group">
+                        <button id="export-results" class="btn btn--outline">Export Results</button>
+                        <div id="export-progress" class="export-progress hidden">
+                            <div class="progress-bar">
+                                <div id="progress-fill" class="progress-fill"></div>
+                            </div>
+                            <span id="export-status">Generating...</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Adaptive Redundancy Controller Panel -->
+            <section class="adaptive-redundancy-panel">
+                <h2 class="section-title">Adaptive Redundancy Controller</h2>
+                <div class="algorithm-grid">
+                    <div class="algorithm-chart">
+                        <h3>Redundancy Factor Evolution</h3>
+                        <img src="https://ppl-ai-code-interpreter-files.s3.amazonaws.com/web/direct-files/e9774bbd583068071574844436b88c89/ceebb786-fd69-451d-a78e-25b31d468502/00f2841a.png" 
+                             alt="Adaptive Redundancy Controller Performance" class="algorithm-chart-img">
+                    </div>
+                    <div class="algorithm-status">
+                        <div class="redundancy-metrics">
+                            <div class="redundancy-metric">
+                                <span class="metric-label">Gold Factor</span>
+                                <span class="metric-value" id="gold-redundancy">1.18</span>
+                                <span class="metric-trend positive">↗ Converged</span>
+                            </div>
+                            <div class="redundancy-metric">
+                                <span class="metric-label">Silver Factor</span>
+                                <span class="metric-value" id="silver-redundancy">1.42</span>
+                                <span class="metric-trend neutral">→ Stable</span>
+                            </div>
+                            <div class="redundancy-metric">
+                                <span class="metric-label">Bronze Factor</span>
+                                <span class="metric-value" id="bronze-redundancy">1.75</span>
+                                <span class="metric-trend negative">↘ Adjusting</span>
+                            </div>
+                        </div>
+                        <div class="violation-tracking">
+                            <h4>Violation Rate Tracking</h4>
+                            <div class="violation-stats">
+                                <div class="violation-stat">
+                                    <span>Gold: <span id="gold-violations">0.08%</span> (Target: 0.1%)</span>
+                                </div>
+                                <div class="violation-stat">
+                                    <span>Silver: <span id="silver-violations">0.9%</span> (Target: 1.0%)</span>
+                                </div>
+                                <div class="violation-stat">
+                                    <span>Bronze: <span id="bronze-violations">4.8%</span> (Target: 5.0%)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="algorithm-formula">
+                    <h4>Online Convex Optimization Formula</h4>
+                    <div class="formula-display">
+                        r<sub>t+1</sub> = r<sub>t</sub> + η · ∂ViolationRate/∂r
+                    </div>
+                    <div class="formula-params">
+                        <span>Learning Rate (η): <span id="learning-rate">0.01</span></span>
+                        <span>Convergence: <span id="convergence-status" class="status status--success">Achieved</span></span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Topology-Aware RLNC Panel -->
+            <section class="topology-rlnc-panel">
+                <h2 class="section-title">Topology-Aware RLNC</h2>
+                <div class="topology-analysis-grid">
+                    <div class="centrality-heatmap">
+                        <h3>Node Centrality Analysis</h3>
+                        <div class="centrality-nodes">
+                            <div class="centrality-node" data-centrality="0.75" style="background: rgba(255, 215, 0, 0.75);">
+                                <span class="node-id">N00</span>
+                                <span class="centrality-value">0.75</span>
+                            </div>
+                            <div class="centrality-node" data-centrality="0.45" style="background: rgba(255, 215, 0, 0.45);">
+                                <span class="node-id">N01</span>
+                                <span class="centrality-value">0.45</span>
+                            </div>
+                            <div class="centrality-node" data-centrality="0.82" style="background: rgba(255, 215, 0, 0.82);">
+                                <span class="node-id">N02</span>
+                                <span class="centrality-value">0.82</span>
+                            </div>
+                            <div class="centrality-node" data-centrality="0.38" style="background: rgba(255, 215, 0, 0.38);">
+                                <span class="node-id">N03</span>
+                                <span class="centrality-value">0.38</span>
+                            </div>
+                            <div class="centrality-node" data-centrality="0.67" style="background: rgba(255, 215, 0, 0.67);">
+                                <span class="node-id">N04</span>
+                                <span class="centrality-value">0.67</span>
+                            </div>
+                            <div class="centrality-node" data-centrality="0.29" style="background: rgba(255, 215, 0, 0.29);">
+                                <span class="node-id">N05</span>
+                                <span class="centrality-value">0.29</span>
+                            </div>
+                            <div class="centrality-node" data-centrality="0.91" style="background: rgba(255, 215, 0, 0.91);">
+                                <span class="node-id">N06</span>
+                                <span class="centrality-value">0.91</span>
+                            </div>
+                            <div class="centrality-node" data-centrality="0.53" style="background: rgba(255, 215, 0, 0.53);">
+                                <span class="node-id">N07</span>
+                                <span class="centrality-value">0.53</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="rlnc-metrics">
+                        <h3>RLNC Performance Metrics</h3>
+                        <div class="rlnc-stats">
+                            <div class="rlnc-stat">
+                                <span class="stat-label">Coefficient Entropy</span>
+                                <span class="stat-value" id="coefficient-entropy">4.2</span>
+                                <span class="stat-unit">bits</span>
+                            </div>
+                            <div class="rlnc-stat">
+                                <span class="stat-label">Linear Independence</span>
+                                <span class="stat-value" id="linear-independence">94%</span>
+                                <span class="stat-trend positive">Optimal</span>
+                            </div>
+                            <div class="rlnc-stat">
+                                <span class="stat-label">Betweenness Centrality</span>
+                                <span class="stat-value" id="avg-centrality">0.60</span>
+                                <span class="stat-unit">avg</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Multi-Objective Optimization Dashboard -->
+            <section class="multi-objective-panel">
+                <h2 class="section-title">Multi-Objective Optimization</h2>
+                <div class="optimization-grid">
+                    <div class="utility-function">
+                        <h3>Utility Function Analysis</h3>
+                        <div class="utility-formula">
+                            <div class="formula-display">
+                                U = α·PDR - β·Latency - γ·CPU_Load
+                            </div>
+                            <div class="utility-params">
+                                <div class="param-row">
+                                    <span class="param-label">α (PDR weight):</span>
+                                    <span class="param-value" id="alpha-value">5.0</span>
+                                </div>
+                                <div class="param-row">
+                                    <span class="param-label">β (Latency penalty):</span>
+                                    <span class="param-value" id="beta-value">2.0</span>
+                                </div>
+                                <div class="param-row">
+                                    <span class="param-label">γ (CPU penalty):</span>
+                                    <span class="param-value" id="gamma-value">1.0</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="current-utility">
+                            <span class="utility-label">Current Utility:</span>
+                            <span class="utility-value" id="current-utility">3.45</span>
+                        </div>
+                    </div>
+                    <div class="pareto-analysis">
+                        <h3>Pareto Efficiency</h3>
+                        <div class="pareto-metrics">
+                            <div class="pareto-metric">
+                                <span class="metric-label">Efficiency Score</span>
+                                <span class="metric-value" id="pareto-efficiency">87%</span>
+                                <div class="efficiency-bar">
+                                    <div class="efficiency-fill" style="width: 87%;"></div>
+                                </div>
+                            </div>
+                            <div class="pareto-metric">
+                                <span class="metric-label">Flow Reallocations</span>
+                                <span class="metric-value" id="flow-reallocations">12</span>
+                                <span class="metric-trend positive">Active</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Edge-Cloud Split Learning Monitor -->
+            <section class="split-learning-panel">
+                <h2 class="section-title">Edge-Cloud Split Learning</h2>
+                <div class="split-learning-grid">
+                    <div class="split-learning-chart">
+                        <h3>Connection Type Performance</h3>
+                        <img src="https://ppl-ai-code-interpreter-files.s3.amazonaws.com/web/direct-files/e9774bbd583068071574844436b88c89/78ed18f9-1e55-4dde-b8ff-09f1ddc82889/379aecbf.png" 
+                             alt="Edge-Cloud Split Learning Performance" class="algorithm-chart-img">
+                    </div>
+                    <div class="processing-breakdown">
+                        <h3>Processing Time Breakdown</h3>
+                        <div class="processing-metrics">
+                            <div class="processing-metric">
+                                <span class="metric-label">Edge Processing</span>
+                                <span class="metric-value" id="edge-processing">15.3ms</span>
+                                <div class="processing-bar edge-bar"></div>
+                            </div>
+                            <div class="processing-metric">
+                                <span class="metric-label">mmWave Sync</span>
+                                <span class="metric-value" id="mmwave-sync">2.5ms</span>
+                                <div class="processing-bar mmwave-bar"></div>
+                            </div>
+                            <div class="processing-metric">
+                                <span class="metric-label">WiFi Sync</span>
+                                <span class="metric-value" id="wifi-sync">8.3ms</span>
+                                <div class="processing-bar wifi-bar"></div>
+                            </div>
+                            <div class="processing-metric">
+                                <span class="metric-label">LoRa Sync</span>
+                                <span class="metric-value" id="lora-sync">150.0ms</span>
+                                <div class="processing-bar lora-bar"></div>
+                            </div>
+                            <div class="processing-metric">
+                                <span class="metric-label">Cloud Processing</span>
+                                <span class="metric-value" id="cloud-processing">25.7ms</span>
+                                <div class="processing-bar cloud-bar"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Cross-Technology Network Panel -->
+            <section class="cross-technology-panel">
+                <h2 class="section-title">Cross-Technology Network Adaptation</h2>
+                <div class="cross-tech-grid">
+                    <div class="cross-tech-chart">
+                        <h3>Dynamic Protocol Selection</h3>
+                        <img src="https://ppl-ai-code-interpreter-files.s3.amazonaws.com/web/direct-files/e9774bbd583068071574844436b88c89/4c9ef3b8-3bc1-4db8-9ba7-57cdcea14d57/215e479c.png" 
+                             alt="Cross-Technology Network Analysis" class="algorithm-chart-img">
+                    </div>
+                    <div class="technology-stats">
+                        <h3>Technology Selection Statistics</h3>
+                        <div class="tech-selections">
+                            <div class="tech-selection">
+                                <span class="tech-name">mmWave</span>
+                                <span class="selection-count" id="mmwave-selections">45</span>
+                                <div class="selection-bar mmwave-selection-bar"></div>
+                            </div>
+                            <div class="tech-selection">
+                                <span class="tech-name">WiFi</span>
+                                <span class="selection-count" id="wifi-selections">78</span>
+                                <div class="selection-bar wifi-selection-bar"></div>
+                            </div>
+                            <div class="tech-selection">
+                                <span class="tech-name">LoRa</span>
+                                <span class="selection-count" id="lora-selections">23</span>
+                                <div class="selection-bar lora-selection-bar"></div>
+                            </div>
+                            <div class="tech-selection">
+                                <span class="tech-name">BLE</span>
+                                <span class="selection-count" id="ble-selections">12</span>
+                                <div class="selection-bar ble-selection-bar"></div>
+                            </div>
+                        </div>
+                        <div class="optimization-score">
+                            <span class="score-label">Avg Optimization Score:</span>
+                            <span class="score-value" id="optimization-score">847.2</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Performance Dashboard -->
+            <section class="performance-dashboard">
+                <h2 class="section-title">Real-Time Performance Metrics</h2>
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <h3>Network Throughput</h3>
+                        <div class="metric-value" id="throughput-value">156.7 Mbps</div>
+                        <div class="metric-trend positive">↗ +2.3%</div>
+                    </div>
+                    <div class="metric-card">
+                        <h3>Active Nodes</h3>
+                        <div class="metric-value" id="active-nodes">8/8</div>
+                        <div class="metric-trend neutral">All Online</div>
+                    </div>
+                    <div class="metric-card">
+                        <h3>FL Round</h3>
+                        <div class="metric-value" id="fl-round">12</div>
+                        <div class="metric-trend positive">84.7% Accuracy</div>
+                    </div>
+                    <div class="metric-card">
+                        <h3>XR Users</h3>
+                        <div class="metric-value" id="xr-users">147</div>
+                        <div class="metric-trend positive">Active Sessions</div>
+                    </div>
+                </div>
+
+                <!-- Performance Charts -->
+                <div class="charts-grid">
+                    <div class="chart-container">
+                        <h3>Network Performance Dashboard</h3>
+                        <img src="https://ppl-ai-code-interpreter-files.s3.amazonaws.com/web/direct-files/a43682963dd2e8bf16f774dd7a11d663/e09fe735-9953-44df-8e59-d7711abd5002/53f498df.png" 
+                             alt="Network Latency Performance" class="performance-chart">
+                    </div>
+                    <div class="chart-container">
+                        <h3>RLNC Performance Analysis</h3>
+                        <img src="https://ppl-ai-code-interpreter-files.s3.amazonaws.com/web/direct-files/a43682963dd2e8bf16f774dd7a11d663/60c14eef-a0c2-4228-9434-a15e18729832/4427339b.png" 
+                             alt="RLNC Performance" class="performance-chart">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Network Topology -->
+            <section class="network-topology">
+                <h2 class="section-title">Live Network Topology</h2>
+                <div class="topology-container">
+                    <svg id="network-graph" class="network-svg" viewBox="0 0 800 600">
+                        <!-- Network visualization will be generated by JavaScript -->
+                    </svg>
+                    <div class="topology-legend">
+                        <div class="legend-item">
+                            <div class="legend-color node-excellent"></div>
+                            <span>Excellent Performance</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color node-good"></div>
+                            <span>Good Performance</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color node-fair"></div>
+                            <span>Fair Performance</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color node-poor"></div>
+                            <span>Poor Performance</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Priority Traffic Classes -->
+            <section class="priority-classes">
+                <h2 class="section-title">Priority Traffic Classes</h2>
+                <div class="priority-grid">
+                    <div class="priority-card priority-gold">
+                        <div class="priority-header">
+                            <h3>Gold Traffic</h3>
+                            <div class="status status--success">SLA Met</div>
+                        </div>
+                        <div class="priority-metrics">
+                            <div class="priority-metric">
+                                <span class="metric-label">Latency</span>
+                                <span class="metric-value" id="gold-latency">18.5ms</span>
+                                <span class="metric-target">(&lt; 20ms)</span>
+                            </div>
+                            <div class="priority-metric">
+                                <span class="metric-label">PDR</span>
+                                <span class="metric-value" id="gold-pdr">99.95%</span>
+                                <span class="metric-target">(&gt; 99.9%)</span>
+                            </div>
+                        </div>
+                        <div class="priority-uses">XR pose tracking, Audio streams, Control commands</div>
+                    </div>
+                    
+                    <div class="priority-card priority-silver">
+                        <div class="priority-header">
+                            <h3>Silver Traffic</h3>
+                            <div class="status status--success">SLA Met</div>
+                        </div>
+                        <div class="priority-metrics">
+                            <div class="priority-metric">
+                                <span class="metric-label">Latency</span>
+                                <span class="metric-value" id="silver-latency">87.3ms</span>
+                                <span class="metric-target">(&lt; 100ms)</span>
+                            </div>
+                            <div class="priority-metric">
+                                <span class="metric-label">PDR</span>
+                                <span class="metric-value" id="silver-pdr">99.2%</span>
+                                <span class="metric-target">(&gt; 99%)</span>
+                            </div>
+                        </div>
+                        <div class="priority-uses">Sensor streams, Status updates, Metadata</div>
+                    </div>
+
+                    <div class="priority-card priority-bronze">
+                        <div class="priority-header">
+                            <h3>Bronze Traffic</h3>
+                            <div class="status status--warning">Near Limit</div>
+                        </div>
+                        <div class="priority-metrics">
+                            <div class="priority-metric">
+                                <span class="metric-label">Latency</span>
+                                <span class="metric-value" id="bronze-latency">245.1ms</span>
+                                <span class="metric-target">(&lt; 500ms)</span>
+                            </div>
+                            <div class="priority-metric">
+                                <span class="metric-label">PDR</span>
+                                <span class="metric-value" id="bronze-pdr">97.8%</span>
+                                <span class="metric-target">(&gt; 95%)</span>
+                            </div>
+                        </div>
+                        <div class="priority-uses">Texture downloads, ML model updates, Log sync</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Federated Learning Monitor -->
+            <section class="fl-monitor">
+                <h2 class="section-title">Federated Learning Monitor</h2>
+                <div class="fl-grid">
+                    <div class="fl-status">
+                        <div class="fl-overview">
+                            <div class="fl-metric">
+                                <span class="fl-label">Current Round</span>
+                                <span class="fl-value" id="current-fl-round">12</span>
+                            </div>
+                            <div class="fl-metric">
+                                <span class="fl-label">Global Accuracy</span>
+                                <span class="fl-value" id="global-accuracy">84.7%</span>
+                            </div>
+                            <div class="fl-metric">
+                                <span class="fl-label">Participating Nodes</span>
+                                <span class="fl-value" id="participating-nodes">6/8</span>
+                            </div>
+                            <div class="fl-metric">
+                                <span class="fl-label">Communication Cost</span>
+                                <span class="fl-value" id="comm-cost">2.4 MB</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="fl-chart">
+                        <h3>Learning Progress</h3>
+                        <img src="https://ppl-ai-code-interpreter-files.s3.amazonaws.com/web/direct-files/a43682963dd2e8bf16f774dd7a11d663/d795c81c-ce22-4f21-98b1-8b1dd968b080/f9d40737.png" 
+                             alt="Federated Learning Progress" class="fl-chart-img">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Advanced Features -->
+            <section class="advanced-features">
+                <h2 class="section-title">Advanced RLNC Parameters</h2>
+                <div class="advanced-grid">
+                    <div class="parameter-card">
+                        <h3>Coding Parameters</h3>
+                        <div class="parameter-list">
+                            <div class="parameter-item">
+                                <span>Field Size:</span>
+                                <span>GF(256)</span>
+                            </div>
+                            <div class="parameter-item">
+                                <span>Generation Size:</span>
+                                <span id="gen-size">64</span>
+                            </div>
+                            <div class="parameter-item">
+                                <span>Redundancy Factor:</span>
+                                <span id="redundancy-display">1.35</span>
+                            </div>
+                            <div class="parameter-item">
+                                <span>Decode Probability:</span>
+                                <span id="decode-prob">98.2%</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="parameter-card">
+                        <h3>Edge Resource Allocation</h3>
+                        <img src="https://ppl-ai-code-interpreter-files.s3.amazonaws.com/web/direct-files/a43682963dd2e8bf16f774dd7a11d663/9f2216ec-6935-4e2c-aff4-918a0f78e5bf/c99d9ede.png" 
+                             alt="Edge Node Heatmap" class="heatmap-img">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Event Timeline -->
+            <section class="event-timeline">
+                <h2 class="section-title">Network Event Timeline</h2>
+                <div class="timeline-container">
+                    <div id="event-log" class="event-log">
+                        <!-- Events will be populated by JavaScript -->
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Tooltip -->
+    <div id="tooltip" class="tooltip hidden"></div>
+
+    <!-- Export Modal -->
+    <div id="export-modal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Export Complete</h3>
+                <button id="close-modal" class="close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="export-summary">
+                    <div class="export-info">
+                        <span class="export-label">Package Size:</span>
+                        <span class="export-value" id="package-size">15.7 MB</span>
+                    </div>
+                    <div class="export-info">
+                        <span class="export-label">Files Generated:</span>
+                        <span class="export-value" id="files-count">7 files</span>
+                    </div>
+                    <div class="export-info">
+                        <span class="export-label">Generation Time:</span>
+                        <span class="export-value" id="generation-time">3.2s</span>
+                    </div>
+                </div>
+                <div class="export-contents">
+                    <h4>Package Contents:</h4>
+                    <ul>
+                        <li>flexrnet_simulation_results.csv - Performance metrics</li>
+                        <li>advanced_algorithms_data.csv - Algorithm analysis</li>
+                        <li>network_topology.json - Network structure</li>
+                        <li>performance_charts/ - Visualization images</li>
+                        <li>executive_summary.pdf - Research summary</li>
+                        <li>reproduction_guide.md - Setup instructions</li>
+                        <li>algorithm_parameters.json - Configuration data</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
