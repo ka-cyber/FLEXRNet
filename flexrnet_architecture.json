@@ -1,0 +1,72 @@
+{
+  "layers": [
+    {
+      "name": "Application Layer",
+      "components": [
+        {
+          "name": "Multi-User XR Digital Twin",
+          "description": "3D shared environment with 50-200 virtual users"
+        },
+        {
+          "name": "ARENA-style Platform",
+          "description": "Web-based collaborative XR framework"
+        },
+        {
+          "name": "Real-time Visualization",
+          "description": "Live network topology and user interaction display"
+        }
+      ]
+    },
+    {
+      "name": "Edge AI Layer",
+      "components": [
+        {
+          "name": "Federated Learning Agents",
+          "description": "Privacy-preserving distributed learning"
+        },
+        {
+          "name": "Resource Allocation RL",
+          "description": "Reinforcement learning for dynamic resource optimization"
+        },
+        {
+          "name": "Decision Engines",
+          "description": "Local optimization without central coordination"
+        }
+      ]
+    },
+    {
+      "name": "Network Coding Layer",
+      "components": [
+        {
+          "name": "Adaptive RLNC",
+          "description": "Dynamic redundancy factor adjustment"
+        },
+        {
+          "name": "Priority-Aware Scheduler",
+          "description": "Gold/Silver/Bronze traffic classification"
+        },
+        {
+          "name": "Galois Field GF(256)",
+          "description": "Mathematical foundation for linear coding"
+        }
+      ]
+    },
+    {
+      "name": "Physical Network Layer",
+      "components": [
+        {
+          "name": "Multi-Protocol Mesh",
+          "description": "WiFi, mmWave, LoRa, BLE adaptive switching"
+        },
+        {
+          "name": "Beamforming Control",
+          "description": "mmWave directional communication"
+        },
+        {
+          "name": "Mobile Edge Computing",
+          "description": "Distributed computational resources"
+        }
+      ]
+    }
+  ]
+}

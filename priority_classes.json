@@ -1,0 +1,35 @@
+{
+  "Gold": {
+    "latency_requirement_ms": 20,
+    "packet_size_bytes": "30-100",
+    "data_rate_kbps": "100-500",
+    "reliability": 0.999,
+    "use_cases": [
+      "XR pose tracking",
+      "Audio streams",
+      "Control commands"
+    ]
+  },
+  "Silver": {
+    "latency_requirement_ms": 100,
+    "packet_size_bytes": "500-2000",
+    "data_rate_kbps": "1000-5000",
+    "reliability": 0.99,
+    "use_cases": [
+      "Sensor streams",
+      "Status updates",
+      "Metadata"
+    ]
+  },
+  "Bronze": {
+    "latency_requirement_ms": 500,
+    "packet_size_bytes": "1024-65536",
+    "data_rate_kbps": "10000-200000",
+    "reliability": 0.95,
+    "use_cases": [
+      "Texture downloads",
+      "ML model updates",
+      "Log synchronization"
+    ]
+  }
+}
